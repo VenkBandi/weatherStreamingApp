@@ -180,3 +180,12 @@ def weatherStreamingApp(myTimer: func.TimerRequest) -> None:
 
     # Close producer
     producer.close()
+
+@app.timer_trigger(schedule="* */30 * * * *", arg_name="myTimer", run_on_startup=False,
+              use_monitor=False) 
+def weatherStreamingApp(myTimer: func.TimerRequest) -> None:
+    
+    if myTimer.past_due:
+        logging.info('The timer is past due!')
+
+    logging.info('Python timer trigger function executed.')
